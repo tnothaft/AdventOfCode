@@ -1,29 +1,29 @@
 package aoc2015
 
+import aoc.CharacterBasedSolver
 import aoc.readInputs
 
-fun part1(): Int {
-    val instructions = readInputs(2015, 1)
-    return instructions.count { it == '(' } - instructions.count { it == ')' }
-}
+class Day01: CharacterBasedSolver(2015, 1) {
 
-fun part2(): Int {
-    val instructions = readInputs(2015, 1)
-    var floor = 0
-    var instruction = 1
-    instructions.forEach {
-        when(it) {
-            '(' -> floor++
-            ')' -> floor--
+    override fun solvePart1(inputs: CharSequence): Int =
+        inputs.count { it == '(' } - inputs.count { it == ')' }
+
+    override fun solvePart2(inputs: CharSequence): Int {
+        var floor = 0
+        var instruction = 1
+        inputs.forEach {
+            when (it) {
+                '(' -> floor++
+                ')' -> floor--
+            }
+            if (floor == -1)
+                return instruction
+            instruction++
         }
-        if(floor == -1)
-            return instruction
-        instruction++
+        return Int.MAX_VALUE
     }
-    return 0
 }
 
 fun main() {
-    println("Part 1: ${part1()}")
-    println("Part 2: ${part2()}")
+    Day01().solve()
 }
